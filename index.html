@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+
+<style>
+/* ========== GLOBAL STYLES ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 360px;
+}
+
+h1 {
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #667eea;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #5a67d8;
+}
+
+.result {
+    margin-top: 15px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #222;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #555;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Temperature Converter</h1>
+    
+    <input type="number" id="inputTemp" placeholder="Enter temperature">
+    
+    <select id="fromUnit">
+        <option value="c">Celsius (°C)</option>
+        <option value="f">Fahrenheit (°F)</option>
+        <option value="k">Kelvin (K)</option>
+    </select>
+    
+    <select id="toUnit">
+        <option value="c">Celsius (°C)</option>
+        <option value="f">Fahrenheit (°F)</option>
+        <option value="k">Kelvin (K)</option>
+    </select>
+    
+    <button onclick="convertTemp()">Convert</button>
+    
+    <div class="result" id="result"></div>
+    
+    <footer>Made with ❤️ by You</footer>
+</div>
+
+<script>
+function convertTemp() {
+    let input = parseFloat(document.getElementById("inputTemp").value);
+    let from = document.getElementById("fromUnit").value;
+    let to = document.getElementById("toUnit").value;
+    let result = document.getElementById("result");
+    
+    if(isNaN(input)) {
+        result.innerText = "⚠️ Enter a valid number!";
+        return;
+    }
+    
+    let converted;
+    
+    // Convert to Celsius first
+    if(from === "c") converted = input;
+    if(from === "f") converted = (input - 32) * 5/9;
+    if(from === "k") converted = input - 273.15;
+    
+    // Convert Celsius to target
+    if(to === "c") converted = converted;
+    if(to === "f") converted = (converted * 9/5) + 32;
+    if(to === "k") converted = converted + 273.15;
+    
+    result.innerText = `Result: ${converted.toFixed(2)} ${to.toUpperCase()}`;
+}
+</script>
+
+</body>
+</html>
